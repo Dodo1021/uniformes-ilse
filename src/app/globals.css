@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #1B2A4A;
+  --color-navy-light: #2A3D63;
+  --color-turquoise: #4DC9C2;
+  --color-turquoise-dark: #36A8A2;
+  --color-cream: #F8FAFB;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+html,
+body {
+  background: #ffffff;
+  color: var(--color-navy);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+/* Subtle scrollbar */
+* {
+  scrollbar-width: thin;
+}
