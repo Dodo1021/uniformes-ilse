@@ -28,14 +28,15 @@ export async function GET(
     return new NextResponse("Not found", { status: 404 });
   }
 
-  // Prisma returns Buffer for Bytes columns
-  const body = upload.data as unknown as Buffer;
+  // Prisma returns Buffer for Bytes columns; wrap in Blob for cross-runtime BodyInit compat
+  const buf = upload.data as unknown as Buffer;
+  const blob = new Blob([new Uint8Array(buf)], { type: upload.mimeType });
 
-  return new NextResponse(body, {
+  return new NextResponse(blob, {
     status: 200,
     headers: {
       "Content-Type": upload.mimeType,
-      "Content-Length": String(body.byteLength),
+      "Content-Length": String(blob.size),
       "Cache-Control": "public, max-age=31536000, immutable",
     },
   });
