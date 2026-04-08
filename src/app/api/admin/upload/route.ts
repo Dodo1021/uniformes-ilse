@@ -1,12 +1,19 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
 import { randomBytes } from "crypto";
 import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
 export const runtime = "nodejs";
 
-const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
+const ALLOWED_EXT = ["jpg", "jpeg", "png", "webp", "gif", "svg"];
+const MIME: Record<string, string> = {
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+  png: "image/png",
+  webp: "image/webp",
+  gif: "image/gif",
+  svg: "image/svg+xml",
+};
 
 export async function POST(req: Request) {
   const session = await auth();
@@ -25,13 +32,19 @@ export async function POST(req: Request) {
     );
 
   const ext = (file.name.split(".").pop() ?? "jpg").toLowerCase();
-  if (!["jpg", "jpeg", "png", "webp", "gif", "svg"].includes(ext))
+  if (!ALLOWED_EXT.includes(ext))
     return NextResponse.json({ error: "Formato no soportado" }, { status: 400 });
 
   const filename = `${Date.now()}-${randomBytes(6).toString("hex")}.${ext}`;
-  await mkdir(UPLOAD_DIR, { recursive: true });
   const buffer = Buffer.from(await file.arrayBuffer());
-  await writeFile(path.join(UPLOAD_DIR, filename), buffer);
+
+  await prisma.upload.create({
+    data: {
+      filename,
+      mimeType: MIME[ext] ?? "application/octet-stream",
+      data: buffer,
+    },
+  });
 
   return NextResponse.json({ url: `/uploads/${filename}` });
 }

@@ -61,3 +61,11 @@ model Setting {
   value     String
   updatedAt DateTime @updatedAt
 }
+
+model Upload {
+  id        String   @id @default(cuid())
+  filename  String   @unique
+  mimeType  String
+  data      Bytes
+  createdAt DateTime @default(now())
+}
