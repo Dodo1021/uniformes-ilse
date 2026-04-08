@@ -39,7 +39,7 @@ async function main() {
       categoryId: uniformes.id,
       sizes: UNIFORM_SIZES,
       stock: 15,
-      images: ["/uploads/seed-scrubs-azul.svg"],
+      images: ["/seed/scrubs-azul.svg"],
     },
     {
       name: "Uniforme quirúrgico scrubs verde quirófano",
@@ -49,7 +49,7 @@ async function main() {
       categoryId: uniformes.id,
       sizes: UNIFORM_SIZES,
       stock: 12,
-      images: ["/uploads/seed-scrubs-verde.svg"],
+      images: ["/seed/scrubs-verde.svg"],
     },
     {
       name: "Conjunto scrubs mujer lila",
@@ -59,7 +59,7 @@ async function main() {
       categoryId: uniformes.id,
       sizes: ["XS", "S", "M", "L", "XL"],
       stock: 8,
-      images: ["/uploads/seed-scrubs-lila.svg"],
+      images: ["/seed/scrubs-lila.svg"],
     },
     {
       name: "Zapato de hospital blanco antiderrapante",
@@ -69,7 +69,7 @@ async function main() {
       categoryId: zapatos.id,
       sizes: SHOE_SIZES,
       stock: 10,
-      images: ["/uploads/seed-zapato-blanco.svg"],
+      images: ["/seed/zapato-blanco.svg"],
     },
     {
       name: "Zueco hospitalario negro con arco",
@@ -79,7 +79,7 @@ async function main() {
       categoryId: zapatos.id,
       sizes: ["23", "24", "24.5", "25", "25.5", "26"],
       stock: 7,
-      images: ["/uploads/seed-zueco-negro.svg"],
+      images: ["/seed/zueco-negro.svg"],
     },
   ];
 
